@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movies.Application.Requests;
+using Movies.Application.Responses;
+using Movies.Application.Services;
+using Movies.Core.Enums;
 
 namespace Movies.Api.Controllers
 {
@@ -6,10 +10,24 @@ namespace Movies.Api.Controllers
     [Route("[controller]")]
     public class MoviesController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<object> Get()
+        private readonly IMoviesServices _services;
+        public MoviesController(IMoviesServices services)
         {
-            return Enumerable.Empty<object>();
+            _services = services;
+        }
+
+        [HttpGet("Categories")]
+        public IEnumerable<CategoriesResponse> Get()
+        {
+            return _services.GetMovieCategories();
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(AddMovieRequest request)
+        {
+            await _services.AddMovie(request);
+            return Ok();
         }
     }
 }

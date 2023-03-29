@@ -1,9 +1,12 @@
 using Movies.Application;
+using Movies.Application.Profiles;
 using Movies.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
 Console.WriteLine(builder.Configuration.GetConnectionString("ConnectionString") ?? "Something");
+
+builder.Services.AddAutoMapper(typeof(MoviesProfile));
 
 builder.Services.AddApplication();
 
