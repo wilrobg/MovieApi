@@ -4,8 +4,9 @@ namespace Movies.Application.Commons.Repositories.Common;
 
 public interface IRepository<TDbSet, TPKey> where TDbSet : class
 {
-    Task<List<TReturn>> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate);
-    Task AddAsync<T>(T requestEntity);
-    void Update(TDbSet entity);
-    void RemoveAsync(TDbSet entity);
+    ValueTask<TDbSet> GetByIdAsync(TPKey id);
+    IQueryable<TReturn> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate);
+    Task AddAsync<TRequestToMap>(TRequestToMap requestEntity);
+    Task Update<TRequestToMap>(TDbSet entity, TRequestToMap requestEntity);
+    Task RemoveAsync(TDbSet entity);
 }

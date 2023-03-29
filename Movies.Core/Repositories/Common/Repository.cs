@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Movies.Application.Commons.Repositories.Common;
 using Movies.Core.Contexts;
@@ -19,11 +20,6 @@ public abstract class Repository<TDbSet, TPKey> : IRepository<TDbSet, TPKey> whe
         _mapper = mapper;
     }
 
-    public Task<List<TReturn>> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task AddAsync<TRequestToMap>(TRequestToMap requestEntity)
     {
         var entity = _mapper.Map<TDbSet>(requestEntity);
@@ -31,13 +27,26 @@ public abstract class Repository<TDbSet, TPKey> : IRepository<TDbSet, TPKey> whe
         return Context.SaveChangesAsync();
     }
 
-    public void Update(TDbSet entity)
+    public Task Update<TRequestToMap>(TDbSet entity, TRequestToMap requestEntity)
     {
+        entity = _mapper.Map(requestEntity, entity);
         Context.Set<TDbSet>().Update(entity);
+        return Context.SaveChangesAsync();
     }
 
-    public void RemoveAsync(TDbSet entity)
+    public Task RemoveAsync(TDbSet entity)
     {
         Context.Set<TDbSet>().Remove(entity);
+        return Context.SaveChangesAsync();
+    }
+
+    public ValueTask<TDbSet> GetByIdAsync(TPKey id)
+    {
+        return Context.Set<TDbSet>().FindAsync(id);
+    }
+
+    public virtual IQueryable<TReturn> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate)
+    {
+        return DbSet.Where(predicate).ProjectTo<TReturn>(_mapper.ConfigurationProvider);
     }
 }

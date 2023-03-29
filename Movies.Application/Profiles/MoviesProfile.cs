@@ -8,7 +8,10 @@ public class MoviesProfile : Profile
 {
 	public MoviesProfile()
 	{
-		CreateMap<AddMovieRequest, Movie>()
-			.ForMember(m => m.Category, map => map.MapFrom(s => s.CategoryId));
-	}
+        CreateProjection<Movie, MoviesResponse>();
+
+        CreateMap<AddMovieRequest, Movie>();
+
+        CreateMap<UpdateMovieRequest, Movie>();
+    }
 }
