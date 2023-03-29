@@ -1,3 +1,4 @@
+using Movies.Api.Extensions;
 using Movies.Application;
 using Movies.Application.Profiles;
 using Movies.Core;
@@ -24,13 +25,16 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var environment = app.Environment.IsDevelopment();
+if (environment)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
+app.UseGlobalExceptionHandler(environment);
 
 app.UseAuthorization();
 
