@@ -2,7 +2,8 @@
 using Movies.Application.Requests;
 using Movies.Application.Responses;
 using Movies.Application.Services;
-using Movies.Core.Enums;
+using Movies.Core.Common;
+using Movies.Core.Models;
 
 namespace Movies.Api.Controllers
 {
@@ -28,6 +29,26 @@ namespace Movies.Api.Controllers
         {
             await _services.AddMovie(request);
             return Ok();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(UpdateMovieRequest request)
+        {
+            await _services.UpdateMovie(request);
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _services.DeleteMovie(id);
+            return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<PaginationResult<MoviesResponse>> GetMovies([FromQuery] MoviesRequest request)
+        {
+            return await _services.GetMovies(request);
         }
     }
 }
