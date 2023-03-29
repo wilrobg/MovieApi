@@ -1,0 +1,39 @@
+version: '3.4'
+
+networks:
+  dev:
+    driver: bridge 
+
+services:
+  movies-service:
+    image: ${REGISTRY:-movies}/movies.api:${PLATFORM:-linux}-${TAG:-latest}
+    depends_on:
+      - "movies_db"
+    container_name: movies-service
+    ports:
+      - "5009:80"
+    build:
+      context: .
+      dockerfile: Movies.API/Dockerfile
+    environment:
+      - ConnectionString=host=movies_db;port=5431;database=moviesDB;username=postgres;password=postgres;Pooling=true;
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - dev
+
+  movies_db:
+    image: postgres:latest
+    container_name: movies_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5431:5432"
+    restart: always
+    volumes:
+      - customer_data:/var/lib/postgresql/data/ 
+    networks:
+      - dev
+
+volumes:
+  customer_data:
