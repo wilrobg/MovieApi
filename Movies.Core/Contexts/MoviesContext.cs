@@ -42,7 +42,8 @@ public class MoviesContext : DbContext
                 .RuleFor(x => x.Name, f => f.Random.Words(3))
                 .RuleFor(x => x.ReleaseYear, f => f.Random.Number(1950, DateTime.Now.Year))
                 .RuleFor(x => x.Synopsis, f => f.Lorem.Paragraph(5))
-                .RuleFor(x => x.Category, f => f.PickRandom<MovieCategory>())
+                .RuleFor(x => x.CategoryId, f => f.PickRandom<MovieCategory>())
+                .RuleFor(x => x.Rating, f => (short)f.Random.Number(1,10))
                 .Generate(500);
 
             await Movies.AddRangeAsync(movies);

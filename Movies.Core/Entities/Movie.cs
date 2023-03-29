@@ -20,8 +20,10 @@ public class Movie
     public byte[] Image { get; set; }
 
     [Required]
-    public MovieCategory Category { get; set; }
+    public MovieCategory CategoryId { get; set; }
 
     [Required]
     public DateTime CreatedDate { get; set; }
+    public string CreatedBy { get; set; }
+    public short Rating { get; set; }
 }

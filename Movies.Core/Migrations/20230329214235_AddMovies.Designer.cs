@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movies.Core.Migrations
 {
     [DbContext(typeof(MoviesContext))]
-    [Migration("20230329051806_AddMovies")]
+    [Migration("20230329214235_AddMovies")]
     partial class AddMovies
     {
         /// <inheritdoc />
@@ -33,8 +33,11 @@ namespace Movies.Core.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<short>("Category")
+                    b.Property<short>("CategoryId")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -48,6 +51,9 @@ namespace Movies.Core.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<short>("Rating")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("ReleaseYear")
                         .HasColumnType("integer");

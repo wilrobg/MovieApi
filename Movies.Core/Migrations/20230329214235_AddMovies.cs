@@ -22,8 +22,10 @@ namespace Movies.Core.Migrations
                     ReleaseYear = table.Column<int>(type: "integer", nullable: false),
                     Synopsis = table.Column<string>(type: "text", nullable: false),
                     Image = table.Column<byte[]>(type: "bytea", nullable: true),
-                    Category = table.Column<short>(type: "smallint", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()")
+                    CategoryId = table.Column<short>(type: "smallint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    Rating = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {

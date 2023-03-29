@@ -30,8 +30,11 @@ namespace Movies.Core.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<short>("Category")
+                    b.Property<short>("CategoryId")
                         .HasColumnType("smallint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -45,6 +48,9 @@ namespace Movies.Core.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<short>("Rating")
+                        .HasColumnType("smallint");
 
                     b.Property<int>("ReleaseYear")
                         .HasColumnType("integer");
