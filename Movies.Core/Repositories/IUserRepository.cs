@@ -3,12 +3,9 @@ using Movies.Core.Entities;
 
 namespace Movies.Core.Repositories;
 
-public class IUserRepository
+public interface IUserRepository
 {
-	private readonly SignInManager<User> _signInManager;
-
-    public IUserRepository(SignInManager<User> signInManager)
-	{
-        _signInManager = signInManager;
-    }
+    Task<IdentityResult> CreateUser(User user, string password, string role);
+    Task<User> GetUserByEmail(User user);
+    Task<IdentityResult> AddRole(Role role);
 }

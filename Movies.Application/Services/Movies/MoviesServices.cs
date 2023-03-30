@@ -7,6 +7,7 @@ using Movies.Core.Common;
 using Movies.Core.Enums;
 using Movies.Core.Models;
 using Movies.Core.Repositories;
+using Movies.Core.Abstractions;
 using System.Net;
 
 namespace Movies.Application.Services.Movies;

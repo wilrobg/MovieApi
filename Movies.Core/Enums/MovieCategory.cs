@@ -19,20 +19,3 @@ public enum MovieCategory : short
 
     Generic = 6
 }
-
-public static class Enumss
-{
-    public static string GetEnumDescription(this MovieCategory value)
-    {
-        FieldInfo fi = value.GetType().GetField(value.ToString());
-
-        DescriptionAttribute[] attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-
-        if (attributes != null && attributes.Any())
-        {
-            return attributes.First().Description;
-        }
-
-        return value.ToString();
-    }
-}

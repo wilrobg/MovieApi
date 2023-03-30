@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Movies.Core.Enums;
 using Movies.Core.Models;
 using Movies.Core.Entities;
+using Movies.Core.Abstractions;
 
 namespace Movies.Core.Contexts;
 
@@ -35,23 +36,5 @@ public class MoviesContext : IdentityDbContext<IdentityUser>
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseNpgsql(Configuration.GetConnectionString("ConnectionString"));
-    }
-
-    public async Task AddSeeder()
-    {
-        if (!await Movies.AnyAsync())
-        {
-            var movies = new Faker<Movie>()
-                .RuleFor(x => x.Name, f => f.Random.Words(3))
-                .RuleFor(x => x.ReleaseYear, f => f.Random.Number(1950, DateTime.Now.Year))
-                .RuleFor(x => x.Synopsis, f => f.Lorem.Paragraph(5))
-                .RuleFor(x => x.CategoryId, f => f.PickRandom<MovieCategory>())
-                .RuleFor(x => x.Rating, f => (short)f.Random.Number(1,10))
-                .Generate(500);
-
-            await Movies.AddRangeAsync(movies);
-
-            await SaveChangesAsync();
-        }
     }
 }
