@@ -1,12 +1,15 @@
 ﻿using Bogus;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Movies.Core.Enums;
 using Movies.Core.Models;
+using Movies.Core.Entities;
 
 namespace Movies.Core.Contexts;
 
-public class MoviesContext : DbContext
+public class MoviesContext : IdentityDbContext<IdentityUser>
 {
     protected readonly IConfiguration Configuration;
 
@@ -14,6 +17,10 @@ public class MoviesContext : DbContext
     {
         Configuration = configuration;
     }
+
+    public DbSet<Movie> Movies { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,12 +37,8 @@ public class MoviesContext : DbContext
         options.UseNpgsql(Configuration.GetConnectionString("ConnectionString"));
     }
 
-    public DbSet<Movie> Movies { get; set; }
-
     public async Task AddSeeder()
     {
-        Database.Migrate();
-
         if (!await Movies.AnyAsync())
         {
             var movies = new Faker<Movie>()

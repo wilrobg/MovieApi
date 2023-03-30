@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Movies.Core.Contexts;
 using Movies.Core.Repositories;
 
@@ -11,6 +12,9 @@ public static class Setup
         services.AddDbContext<MoviesContext>();
 
         services.AddScoped<IMoviesRepository, MoviesRepository>();
+
+        services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<MoviesContext>();
     }
 
     public static async Task DatabaseSeeder(this IServiceCollection services)
