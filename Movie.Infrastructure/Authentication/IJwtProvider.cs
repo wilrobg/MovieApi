@@ -1,5 +1,4 @@
-﻿using Movies.Application.Requests.Users;
-using Movies.Core.Entities;
+﻿using Movies.Core.Entities;
 
 namespace Movies.Application.Services.Users;
 

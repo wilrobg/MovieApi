@@ -40,8 +40,16 @@ public class UserServices : IUserServices
         }
     }
 
-    public async Task<string> LoginUser(LoginRequest login)
+    public async Task<string> LoginUser(LoginRequest loginRequest)
     {
-        return _jwtProvider.GenerateToken(null);
+        var user = await _userRepository.GetUserByEmail(loginRequest.Email);
+
+        if (user is null) throw new MoviesException(HttpStatusCode.Unauthorized);
+
+        var isValidPassword = await _userRepository.CheckPassword(user, loginRequest.Password);
+
+        if (!isValidPassword) throw new MoviesException(HttpStatusCode.Unauthorized);
+
+        return _jwtProvider.GenerateToken(user);
     }
 }

@@ -6,7 +6,12 @@ public class MoviesException : Exception
 {
 	public HttpStatusCode HttpStatusCode { get; }
 
-	public MoviesException(HttpStatusCode statusCode, string message) : base(message) 
+    public MoviesException(HttpStatusCode statusCode) : base()
+    {
+        HttpStatusCode = statusCode;
+    }
+
+    public MoviesException(HttpStatusCode statusCode, string message) : base(message) 
 	{
 		HttpStatusCode = statusCode;
 	}
