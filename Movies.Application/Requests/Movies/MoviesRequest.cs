@@ -1,7 +1,7 @@
 ﻿using Movies.Core.Common;
 using Movies.Core.Enums;
 
-namespace Movies.Application.Requests;
+namespace Movies.Application.Requests.Movies;
 
 public class MoviesRequest : PaginationRequest
 {

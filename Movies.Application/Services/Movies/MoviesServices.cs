@@ -1,15 +1,15 @@
 ﻿using LinqKit;
 using Microsoft.AspNetCore.Http;
 using Movies.Application.Exceptions;
-using Movies.Application.Requests;
-using Movies.Application.Responses;
+using Movies.Application.Requests.Movies;
+using Movies.Application.Responses.Movies;
 using Movies.Core.Common;
 using Movies.Core.Enums;
 using Movies.Core.Models;
 using Movies.Core.Repositories;
 using System.Net;
 
-namespace Movies.Application.Services;
+namespace Movies.Application.Services.Movies;
 
 public class MoviesServices : IMoviesServices
 {
@@ -29,7 +29,7 @@ public class MoviesServices : IMoviesServices
         if (!string.IsNullOrEmpty(request.Synopsis))
             predicate.And(x => x.Synopsis.Contains(request.Synopsis));
 
-        if(request.CategoryId is not null)
+        if (request.CategoryId is not null)
             predicate.And(x => x.CategoryId == request.CategoryId);
 
         if (request.ReleaseYear is not null)
@@ -60,7 +60,7 @@ public class MoviesServices : IMoviesServices
 
         if (movie is null)
             throw new MoviesException(HttpStatusCode.NotFound, "Movie not found");
-        
+
         await _repository.Update(movie, request);
     }
 

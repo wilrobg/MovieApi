@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Movies.Application.Services;
+using Movies.Application.Services.Movies;
 
 namespace Movies.Application;
 

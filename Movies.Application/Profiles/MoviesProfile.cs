@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Movies.Application.Requests;
+using Movies.Application.Requests.Movies;
+using Movies.Application.Responses.Movies;
 using Movies.Core.Models;
 
 namespace Movies.Application.Profiles;

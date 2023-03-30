@@ -1,6 +1,6 @@
 ﻿using Movies.Core.Enums;
 
-namespace Movies.Core.Models;
+namespace Movies.Application.Responses.Movies;
 
 public class MoviesResponse
 {

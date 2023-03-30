@@ -1,9 +1,8 @@
-﻿using Movies.Application.Requests;
-using Movies.Application.Responses;
+﻿using Movies.Application.Requests.Movies;
+using Movies.Application.Responses.Movies;
 using Movies.Core.Common;
-using Movies.Core.Models;
 
-namespace Movies.Application.Services;
+namespace Movies.Application.Services.Movies;
 
 public interface IMoviesServices
 {

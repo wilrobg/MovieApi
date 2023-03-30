@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Requests;
-using Movies.Application.Responses;
-using Movies.Application.Services;
+using Movies.Application.Requests.Movies;
+using Movies.Application.Responses.Movies;
+using Movies.Application.Services.Movies;
 using Movies.Core.Common;
-using Movies.Core.Models;
 
 namespace Movies.Api.Controllers
 {

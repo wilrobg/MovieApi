@@ -1,18 +1,14 @@
-﻿
-using Movies.Core.Enums;
+﻿using Movies.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Movies.Application.Requests;
+namespace Movies.Application.Requests.Movies;
 
-public class UpdateMovieRequest
+public class AddMovieRequest
 {
-    [Required]
-    public int Id { get; set; }
-
     [Required]
     [MaxLength(100)]
     public string Name { get; set; }
-    
+
     [Required]
     [Range(1900, 2023)]
     public int? ReleaseYear { get; set; }
