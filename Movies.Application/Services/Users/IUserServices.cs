@@ -1,6 +1,9 @@
-﻿namespace Movies.Application.Services.Users;
+﻿using Movies.Application.Requests.Users;
+
+namespace Movies.Application.Services.Users;
 
 public interface IUserServices
 {
-    object GenerateUserToken();
+    Task AddUser(AddUserRequest login);
+    Task<string> LoginUser(LoginRequest login);
 }

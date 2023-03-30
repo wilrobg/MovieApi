@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="7.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Movie.Infrastructure\Movies.Infrastructure.csproj" />
     <ProjectReference Include="..\Movies.Core\Movies.Core.csproj" />
   </ItemGroup>
 
