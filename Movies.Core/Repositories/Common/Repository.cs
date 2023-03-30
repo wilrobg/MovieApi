@@ -34,6 +34,12 @@ public abstract class Repository<TDbSet, TPKey> : IRepository<TDbSet, TPKey> whe
         return Context.SaveChangesAsync();
     }
 
+    public Task Update(TDbSet entity)
+    {
+        Context.Set<TDbSet>().Update(entity);
+        return Context.SaveChangesAsync();
+    }
+
     public Task RemoveAsync(TDbSet entity)
     {
         Context.Set<TDbSet>().Remove(entity);

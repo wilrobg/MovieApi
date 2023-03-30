@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using Microsoft.AspNetCore.Http;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests;
 using Movies.Application.Responses;
@@ -71,5 +72,28 @@ public class MoviesServices : IMoviesServices
             throw new MoviesException(HttpStatusCode.NotFound, "Movie not found");
 
         await _repository.RemoveAsync(movie);
+    }
+
+    public async Task UpdateMovieImage(UpdateMovieImageRequest request)
+    {
+        var movie = await _repository.GetByIdAsync(request.Id);
+
+        if (movie is null)
+            throw new MoviesException(HttpStatusCode.NotFound, "Movie not found");
+
+        var imageData = await GetFilesBytesArray(request.Image);
+
+        movie.Image = imageData;
+
+        await _repository.Update(movie);
+    }
+
+    private async Task<byte[]> GetFilesBytesArray(IFormFile file)
+    {
+        await using var ms = new MemoryStream();
+        await file.CopyToAsync(ms);
+        var fileBytes = ms.ToArray();
+
+        return fileBytes;
     }
 }

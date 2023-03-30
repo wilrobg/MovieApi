@@ -12,4 +12,5 @@ public interface IMoviesServices
     IEnumerable<CategoriesResponse> GetMovieCategories();
     Task UpdateMovie(UpdateMovieRequest request);
     Task DeleteMovie(int id);
+    Task UpdateMovieImage(UpdateMovieImageRequest request);
 }

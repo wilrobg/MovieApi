@@ -8,5 +8,6 @@ public interface IRepository<TDbSet, TPKey> where TDbSet : class
     IQueryable<TReturn> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate);
     Task AddAsync<TRequestToMap>(TRequestToMap requestEntity);
     Task Update<TRequestToMap>(TDbSet entity, TRequestToMap requestEntity);
+    Task Update(TDbSet entity);
     Task RemoveAsync(TDbSet entity);
 }

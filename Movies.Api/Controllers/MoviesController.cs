@@ -38,6 +38,13 @@ namespace Movies.Api.Controllers
             return Ok();
         }
 
+        [HttpPut("Image")]
+        public async Task<ActionResult> UpdateMovieImage([FromForm] UpdateMovieImageRequest request)
+        {
+            await _services.UpdateMovieImage(request);
+            return Ok();
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
