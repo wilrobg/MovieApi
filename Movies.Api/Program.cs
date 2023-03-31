@@ -1,6 +1,6 @@
+using CiudadGambito.Api.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using Movies.Api.Extensions;
 using Movies.Api.HttpContextAccessor;
 using Movies.Api.OptionsSetup;
 using Movies.Application;
@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMapper(typeof(MoviesProfile));
 
-builder.Services.AddScoped<IUserHttpContextAccesor, UserHttpContextAccesor>();
+builder.Services.AddSingleton<IUserHttpContextAccesor, UserHttpContextAccesor>();
 
 builder.Services.AddApplication();
 
@@ -22,7 +22,8 @@ await builder.Services.DatabaseSeeder();
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add(new ApiExceptionFilterAttribute()));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -77,8 +78,6 @@ if (environment)
 }
 
 app.UseHttpsRedirection();
-
-app.UseGlobalExceptionHandler(environment);
 
 app.MapControllers();
 
