@@ -27,6 +27,12 @@ public abstract class Repository<TDbSet, TPKey> : IRepository<TDbSet, TPKey> whe
         return Context.SaveChangesAsync();
     }
 
+    public Task AddAsync(TDbSet entity)
+    {
+        Context.Set<TDbSet>().AddAsync(entity).AsTask();
+        return Context.SaveChangesAsync();
+    }
+
     public Task Update<TRequestToMap>(TDbSet entity, TRequestToMap requestEntity)
     {
         entity = _mapper.Map(requestEntity, entity);
@@ -54,5 +60,10 @@ public abstract class Repository<TDbSet, TPKey> : IRepository<TDbSet, TPKey> whe
     public virtual IQueryable<TReturn> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate)
     {
         return DbSet.Where(predicate).ProjectTo<TReturn>(_mapper.ConfigurationProvider);
+    }
+
+    public Task<TDbSet> FirstOrDefault(Expression<Func<TDbSet, bool>> predicate)
+    {
+        return DbSet.FirstOrDefaultAsync(predicate);
     }
 }

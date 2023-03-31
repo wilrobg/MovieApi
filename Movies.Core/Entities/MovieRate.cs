@@ -12,8 +12,18 @@ public class MovieRate
     public DateTime UpdatedDate { get; set; }
 
     public int MovieId { get; set; }
-    public virtual Movie Movie { get; set; }
+    public Movie Movie { get; set; }
 
     public string UserId { get; set; }
-    public virtual User User { get; set; }
+    public User User { get; set; }
+
+    public static MovieRate Create(Movie movie, string userId, short rate)
+    {
+        return new MovieRate
+        {
+            Movie = movie,
+            UserId = userId,
+            Rate = rate
+        };
+    }
 }

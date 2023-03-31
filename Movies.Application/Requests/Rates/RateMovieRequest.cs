@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Movies.Application.Requests.Movies;
+namespace Movies.Application.Requests.Rates;
 
 public class RateMovieRequest
 {
@@ -9,5 +9,5 @@ public class RateMovieRequest
 
     [Required]
     [Range(1, 10)]
-    public short? Rating { get; set; }
+    public short? Rate { get; set; }
 }

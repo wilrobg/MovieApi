@@ -9,15 +9,20 @@ using Movies.Core.Models;
 using Movies.Core.Repositories;
 using Movies.Core.Abstractions;
 using System.Net;
+using Movies.Api.HttpContextAccessor;
 
 namespace Movies.Application.Services.Movies;
 
 public class MoviesServices : IMoviesServices
 {
     private readonly IMoviesRepository _repository;
-    public MoviesServices(IMoviesRepository repository)
+    private readonly IUserHttpContextAccesor _userHttpContext;
+    public MoviesServices(
+        IMoviesRepository repository, 
+        IUserHttpContextAccesor userHttpContext)
     {
         _repository = repository;
+        _userHttpContext = userHttpContext;
     }
 
     public Task<PaginationResult<MoviesResponse>> GetMovies(MoviesRequest request)
@@ -36,8 +41,8 @@ public class MoviesServices : IMoviesServices
         if (request.ReleaseYear is not null)
             predicate.And(x => x.ReleaseYear == request.ReleaseYear);
 
-        if (request.Rating is not null)
-            predicate.And(x => x.Rating == request.Rating);
+        //if (request.Rating is not null)
+        //    predicate.And(x => x.Rating == request.Rating);
 
         return _repository.GetAsync<MoviesResponse>(predicate, request);
     }

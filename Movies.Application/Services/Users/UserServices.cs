@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests.Users;
+using Movies.Application.Responses.Movies;
+using Movies.Application.Responses.Users;
 using Movies.Core.Abstractions;
 using Movies.Core.Entities;
+using Movies.Core.Enums;
 using Movies.Core.Repositories;
 using System.Net;
 
@@ -40,6 +43,14 @@ public class UserServices : IUserServices
         }
     }
 
+    public IEnumerable<UserRolesResponse> GetUserRoles()
+    {
+        var movieCategories = Enum.GetValues<UserRoles>()
+           .Select(m => new UserRolesResponse(m, m.GetEnumDescription()));
+
+        return movieCategories;
+    }
+
     public async Task<string> LoginUser(LoginRequest loginRequest)
     {
         var user = await _userRepository.GetUserByEmail(loginRequest.Email);
@@ -50,6 +61,8 @@ public class UserServices : IUserServices
 
         if (!isValidPassword) throw new MoviesException(HttpStatusCode.Unauthorized);
 
-        return _jwtProvider.GenerateToken(user);
+        var roles = await _userRepository.GetUserRoles(user);
+
+        return _jwtProvider.GenerateToken(user, roles);
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Movies.Api.Extensions;
+using Movies.Api.HttpContextAccessor;
 using Movies.Api.OptionsSetup;
 using Movies.Application;
 using Movies.Application.Profiles;
@@ -9,9 +10,9 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Console.WriteLine(builder.Configuration.GetConnectionString("ConnectionString") ?? "Something");
-
 builder.Services.AddAutoMapper(typeof(MoviesProfile));
+
+builder.Services.AddScoped<IUserHttpContextAccesor, UserHttpContextAccesor>();
 
 builder.Services.AddApplication();
 

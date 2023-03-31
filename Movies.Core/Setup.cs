@@ -14,6 +14,7 @@ public static class Setup
         services.AddDbContext<MoviesContext>();
 
         services.AddScoped<IMoviesRepository, MoviesRepository>();
+        services.AddScoped<IMovieRateRepository, MovieRateRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddIdentity<User, Role>()

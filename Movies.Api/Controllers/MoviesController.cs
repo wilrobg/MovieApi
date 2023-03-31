@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Requests.Movies;
+using Movies.Application.Requests.Rates;
 using Movies.Application.Responses.Movies;
+using Movies.Application.Services.MovieRates;
 using Movies.Application.Services.Movies;
 using Movies.Core.Common;
 
@@ -11,9 +13,13 @@ namespace Movies.Api.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMoviesServices _services;
-        public MoviesController(IMoviesServices services)
+        private readonly IMovieRateServices _movieRateServices;
+        public MoviesController(
+            IMoviesServices services, 
+            IMovieRateServices movieRateServices)
         {
             _services = services;
+            _movieRateServices = movieRateServices;
         }
 
         [HttpGet("Categories")]
@@ -34,6 +40,13 @@ namespace Movies.Api.Controllers
         public async Task<ActionResult> Put(UpdateMovieRequest request)
         {
             await _services.UpdateMovie(request);
+            return Ok();
+        }
+
+        [HttpPut("Rate")]
+        public async Task<ActionResult> RateMovie(RateMovieRequest request)
+        {
+            await _movieRateServices.RateMovie(request);
             return Ok();
         }
 
