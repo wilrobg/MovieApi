@@ -10,7 +10,7 @@ public class MoviesProfile : Profile
 	public MoviesProfile()
 	{
         CreateProjection<Movie, MoviesResponse>()
-            .ForMember(m => m.Rate, map => map.MapFrom(s => s.MovieRates.Average(x => x.Rate));
+            .ForMember(m => m.Rate, map => map.MapFrom(s => s.MovieRates.Average(x => x.Rate)));
 
         CreateMap<AddMovieRequest, Movie>();
 
