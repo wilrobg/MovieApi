@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Requests.Rates;
 using Movies.Application.Responses.MovieRate;
 using Movies.Application.Services.MovieRates;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Movies.Api.Controllers;
 
@@ -16,6 +17,7 @@ public class MovieRateController : ControllerBase
         _movieRateServices = movieRateServices;
     }
 
+    [SwaggerOperation(Summary = "Get rated movies by the user")]
     [HttpGet]
     [Authorize]
     public async Task<List<MovieRateResponse>> GetMoviesRate()
@@ -23,6 +25,7 @@ public class MovieRateController : ControllerBase
         return await _movieRateServices.GetMoviesRate();
     }
 
+    [SwaggerOperation(Summary = "Rate movie", Description = "This endpoint works for update or add a movie rate by user. Rate must be from 1 to 10.")]
     [HttpPut]
     [Authorize]
     public async Task<ActionResult> RateMovie(RateMovieRequest request)
@@ -31,6 +34,8 @@ public class MovieRateController : ControllerBase
         return Ok();
     }
 
+
+    [SwaggerOperation(Summary = "Delete movie rate", Description = "This endpoint delete user movie rate.")]
     [HttpDelete("{movieId:int}")]
     [Authorize]
     public async Task<ActionResult> RemoveRateMovie(int movieId)

@@ -13,7 +13,7 @@ public class UpdateMovieRequest
     public string Name { get; set; }
 
     [Required]
-    [Range(1900, 2023)]
+    [Range(1900, 2050)]
     public int? ReleaseYear { get; set; }
 
     [Required]

@@ -8,6 +8,7 @@ namespace Movies.Api.OptionsSetup
     {
         public void Configure(string name, SwaggerGenOptions options)
         {
+            options.EnableAnnotations();
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
