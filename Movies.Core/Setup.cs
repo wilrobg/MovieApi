@@ -24,10 +24,10 @@ public static class Setup
     {
         using var serviceScope = services.BuildServiceProvider().CreateScope();
 
+        var userRepository = (UserRepository)serviceScope.ServiceProvider.GetRequiredService<IUserRepository>();
+        await userRepository.Seed();
+
         using var context = serviceScope.ServiceProvider.GetRequiredService<MoviesContext>();
         await context.Seed();
-        
-        var userRepository = (UserRepository) serviceScope.ServiceProvider.GetRequiredService<IUserRepository>();
-        await userRepository.Seed();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Movies.Core.Enums;
+﻿using Movies.Core.Entities;
+using Movies.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Movies.Core.Models;
@@ -7,7 +8,7 @@ public class Movie
 {
     [Key]
     public int Id { get; set; }
-    
+
     [Required]
     [MaxLength(100)]
     public string Name { get; set; }
@@ -25,5 +26,9 @@ public class Movie
     [Required]
     public DateTime CreatedDate { get; set; }
     public string CreatedBy { get; set; }
-    public short Rating { get; set; }
+
+    [Required]
+    public string UserId { get; set; }
+
+    public virtual ICollection<MovieRate> MovieRates { get; set;}
 }

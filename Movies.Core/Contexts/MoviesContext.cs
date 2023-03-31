@@ -30,6 +30,22 @@ public class MoviesContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<Movie>(m =>
         {
             m.Property(x => x.CreatedDate).HasDefaultValueSql("NOW()");
+            m.HasIndex(x => x.UserId);
+        });
+
+        modelBuilder.Entity<MovieRate>(m =>
+        {
+            m.Property(x => x.UpdatedDate).HasDefaultValueSql("NOW()");
+
+            m.HasOne(x => x.Movie)
+            .WithMany(x => x.MovieRates)
+            .HasForeignKey(x => x.MovieId);
+
+            m.HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId);
+
+            m.HasIndex(x => new { x.MovieId, x.UserId }).IsUnique();
         });
     }
 
