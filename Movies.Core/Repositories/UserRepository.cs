@@ -34,6 +34,8 @@ public class UserRepository : IUserRepository
     public Task<bool> CheckPassword(User user, string password) => _userManager.CheckPasswordAsync(user, password);
     public Task<User> GetUserByEmail(User user) => _userManager.FindByEmailAsync(user.Email);
     public Task<User> GetUserByEmail(string email) => _userManager.FindByEmailAsync(email);
+    public Task<IdentityResult> AddUserRole(User user, string role) => _userManager.AddToRoleAsync(user, role);
+    public Task<IdentityResult> RemoveFromRole(User user, string role) => _userManager.RemoveFromRoleAsync(user, role);
 
     public Task<IdentityResult> AddRole(Role role)
     {

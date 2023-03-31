@@ -8,4 +8,6 @@ public interface IUserServices
     Task AddUser(AddUserRequest login);
     Task<string> LoginUser(LoginRequest login);
     IEnumerable<UserRolesResponse> GetUserRoles();
+    Task AddUserRole(UserRoleRequest request);
+    Task RemoveUserRole(UserRoleRequest request);
 }

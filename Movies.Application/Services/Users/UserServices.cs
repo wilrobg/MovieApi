@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests.Users;
 using Movies.Application.Responses.Users;
@@ -33,13 +34,7 @@ public class UserServices : IUserServices
         var role = request.Role.GetEnumDescription();
         var result = await _userRepository.CreateUser(user, request.Password, role);
 
-        if (!result.Succeeded)
-        {
-            var errors = result.Errors.ToDictionary(e => e.Code, e => e.Description);
-            var message = string.Join(Environment.NewLine, errors);
-            _logger.LogError("Identity errors: {0}", message);
-            throw new MoviesException(HttpStatusCode.Conflict, "Error adding user");
-        }
+        if (!result.Succeeded) LogIdentityErrors(result);
     }
 
     public IEnumerable<UserRolesResponse> GetUserRoles()
@@ -63,5 +58,47 @@ public class UserServices : IUserServices
         var roles = await _userRepository.GetUserRoles(user);
 
         return _jwtProvider.GenerateToken(user, roles);
+    }
+
+    public async Task AddUserRole(UserRoleRequest request)
+    {
+        var user = await _userRepository.GetUserByEmail(request.Email);
+
+        if (user is null) throw new MoviesException(HttpStatusCode.Unauthorized);
+
+        var userRoles = await _userRepository.GetUserRoles(user);
+
+        var role = request.Role.GetEnumDescription();
+
+        if(userRoles.Contains(role)) throw new MoviesException(HttpStatusCode.Conflict, "User already have the role.");
+
+        var result = await _userRepository.AddUserRole(user, role);
+
+        if (!result.Succeeded) LogIdentityErrors(result);
+    }
+
+    public async Task RemoveUserRole(UserRoleRequest request)
+    {
+        var user = await _userRepository.GetUserByEmail(request.Email);
+
+        if (user is null) throw new MoviesException(HttpStatusCode.Unauthorized);
+
+        var userRoles = await _userRepository.GetUserRoles(user);
+
+        var role = request.Role.GetEnumDescription();
+
+        if (!userRoles.Contains(role)) throw new MoviesException(HttpStatusCode.Conflict, "User not have the role assigned.");
+
+        var result = await _userRepository.RemoveFromRole(user, role);
+
+        if (!result.Succeeded) LogIdentityErrors(result);
+    }
+
+    public void LogIdentityErrors(IdentityResult result)
+    {
+        var errors = result.Errors.ToDictionary(e => e.Code, e => e.Description);
+        var message = string.Join(Environment.NewLine, errors);
+        _logger.LogError("Identity errors: {0}", message);
+        throw new MoviesException(HttpStatusCode.Conflict, "Error adding rol");
     }
 }

@@ -11,4 +11,6 @@ public interface IUserRepository
     Task<User> GetUserByEmail(string email);
     Task<IdentityResult> AddRole(Role role);
     Task<IList<string>> GetUserRoles(User user);
+    Task<IdentityResult> AddUserRole(User user, string role);
+    Task<IdentityResult> RemoveFromRole(User user, string role);
 }

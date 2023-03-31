@@ -30,6 +30,22 @@ namespace Movies.Api.Controllers
             return Ok();
         }
 
+        [HttpPost("Role")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> AddUserRole(UserRoleRequest request)
+        {
+            await _userServices.AddUserRole(request);
+            return Ok();
+        }
+
+        [HttpDelete("Role")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> RemoveUserRole(UserRoleRequest request)
+        {
+            await _userServices.RemoveUserRole(request);
+            return Ok();
+        }
+
         [HttpGet("Roles")]
         [Authorize(Roles = "Admin")]
         public IEnumerable<UserRolesResponse> GetRoles()
