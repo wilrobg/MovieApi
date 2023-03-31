@@ -5,4 +5,5 @@ namespace Movies.Application.Services.MovieRates;
 public interface IMovieRateServices
 {
     Task RateMovie(RateMovieRequest request);
+    Task RemoveRateMovie(int movieId);
 }

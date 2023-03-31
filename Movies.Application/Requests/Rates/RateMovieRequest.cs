@@ -5,7 +5,7 @@ namespace Movies.Application.Requests.Rates;
 public class RateMovieRequest
 {
     [Required]
-    public int Id { get; set; }
+    public int MovieId { get; set; }
 
     [Required]
     [Range(1, 10)]

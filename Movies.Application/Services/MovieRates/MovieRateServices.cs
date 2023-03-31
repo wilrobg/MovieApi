@@ -24,7 +24,7 @@ public class MovieRateServices : IMovieRateServices
 
     public async Task RateMovie(RateMovieRequest request)
     {
-        var movie = await _moviesRepository.GetByIdAsync(request.Id);
+        var movie = await _moviesRepository.GetByIdAsync(request.MovieId);
 
         if (movie is null)
             throw new MoviesException(HttpStatusCode.NotFound, "Movie not found");
@@ -44,5 +44,22 @@ public class MovieRateServices : IMovieRateServices
             movieRate.UserId = _userHttpContextAccesor.Id;
             await _movieRateRepository.Update(movieRate);
         }
+    }
+
+    public async Task RemoveRateMovie(int movieId)
+    {
+        var movie = await _moviesRepository.GetByIdAsync(movieId);
+
+        if (movie is null)
+            throw new MoviesException(HttpStatusCode.NotFound, "Movie not found");
+
+
+        var userId = _userHttpContextAccesor.Id;
+
+        var movieRate = await _movieRateRepository.FirstOrDefault(x => x.MovieId == movie.Id && x.UserId == userId);
+
+        if(movieRate is null) return;
+
+        await _movieRateRepository.RemoveAsync(movieRate);
     }
 }
