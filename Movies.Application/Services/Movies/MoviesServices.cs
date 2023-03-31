@@ -41,15 +41,23 @@ public class MoviesServices : IMoviesServices
         if (request.ReleaseYear is not null)
             predicate.And(x => x.ReleaseYear == request.ReleaseYear);
 
-        //if (request.Rating is not null)
-        //    predicate.And(x => x.Rating == request.Rating);
+        if (request.Rating is not null)
+            predicate.And(x => 
+                Math.Floor(x.MovieRates.Average(x => x.Rate)) == request.Rating);
 
         return _repository.GetAsync<MoviesResponse>(predicate, request);
     }
 
     public Task AddMovie(AddMovieRequest request)
     {
-        return _repository.AddAsync(request);
+        var movie = Movie.Create(
+            request.Name, 
+            request.ReleaseYear.Value, 
+            request.Synopsis, 
+            request.CategoryId.Value, 
+            _userHttpContext.Email);
+
+        return _repository.AddAsync(movie);
     }
 
     public IEnumerable<CategoriesResponse> GetMovieCategories()

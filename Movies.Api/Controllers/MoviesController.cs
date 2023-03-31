@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Requests.Movies;
 using Movies.Application.Requests.Rates;
 using Movies.Application.Responses.Movies;
@@ -37,6 +38,7 @@ namespace Movies.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(UpdateMovieRequest request)
         {
             await _services.UpdateMovie(request);
@@ -44,6 +46,7 @@ namespace Movies.Api.Controllers
         }
 
         [HttpPut("Rate")]
+        [Authorize]
         public async Task<ActionResult> RateMovie(RateMovieRequest request)
         {
             await _movieRateServices.RateMovie(request);
@@ -51,6 +54,7 @@ namespace Movies.Api.Controllers
         }
 
         [HttpPut("Image")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateMovieImage([FromForm] UpdateMovieImageRequest request)
         {
             await _services.UpdateMovieImage(request);
@@ -58,6 +62,7 @@ namespace Movies.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             await _services.DeleteMovie(id);

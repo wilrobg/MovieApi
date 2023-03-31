@@ -25,10 +25,20 @@ public class Movie
 
     [Required]
     public DateTime CreatedDate { get; set; }
+    [Required]
     public string CreatedBy { get; set; }
 
-    [Required]
-    public string UserId { get; set; }
-
     public virtual ICollection<MovieRate> MovieRates { get; set;}
+
+    public static Movie Create(string name, int releaseYear, string synopsis, MovieCategory categoryId, string createdBy)
+    {
+        return new Movie()
+        {
+            Name= name,
+            ReleaseYear= releaseYear,
+            Synopsis= synopsis,
+            CategoryId= categoryId,
+            CreatedBy= createdBy
+        };
+    }
 }

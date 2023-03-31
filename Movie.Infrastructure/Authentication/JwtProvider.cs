@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Movies.Core.Entities;
 using Movies.Infrastructure.Authentication;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 

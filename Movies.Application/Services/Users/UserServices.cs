@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests.Users;
-using Movies.Application.Responses.Movies;
 using Movies.Application.Responses.Users;
 using Movies.Core.Abstractions;
 using Movies.Core.Entities;

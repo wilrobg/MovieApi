@@ -10,5 +10,5 @@ public class MoviesResponse
     public string Synopsis { get; set; }
     public byte[] Image { get; set; }
     public MovieCategory CategoryId { get; set; }
-    public double Rating { get; set; }
+    public double Rate { get; set; }
 }

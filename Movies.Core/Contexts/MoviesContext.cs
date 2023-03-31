@@ -30,7 +30,7 @@ public class MoviesContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<Movie>(m =>
         {
             m.Property(x => x.CreatedDate).HasDefaultValueSql("NOW()");
-            m.HasIndex(x => x.UserId);
+            m.HasIndex(x => x.CreatedBy);
         });
 
         modelBuilder.Entity<MovieRate>(m =>
