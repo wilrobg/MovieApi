@@ -25,27 +25,21 @@ public class MoviesServices : IMoviesServices
         _userHttpContext = userHttpContext;
     }
 
-    public Task<PaginationResult<MoviesResponse>> GetMovies(MoviesRequest request)
+    public async Task<PaginationResult<MoviesResponse>> GetMovies(MoviesRequest request)
     {
-        var predicate = PredicateBuilder.New<Movie>(true);
+        var results = _repository.
+            GetAsync<MoviesResponse>(
+            request,
+            request.Name,
+            request.Synopsis,
+            request.CategoryId,
+            request.ReleaseYear,
+            request.Rating,
+            request.CreatedBy,
+            request.OrderBy,
+            request.OrderByDesc);
 
-        if (!string.IsNullOrEmpty(request.Name))
-            predicate.And(x => x.Name.Contains(request.Name));
-
-        if (!string.IsNullOrEmpty(request.Synopsis))
-            predicate.And(x => x.Synopsis.Contains(request.Synopsis));
-
-        if (request.CategoryId is not null)
-            predicate.And(x => x.CategoryId == request.CategoryId);
-
-        if (request.ReleaseYear is not null)
-            predicate.And(x => x.ReleaseYear == request.ReleaseYear);
-
-        if (request.Rating is not null)
-            predicate.And(x => 
-                Math.Floor(x.MovieRates.Average(x => x.Rate)) == request.Rating);
-
-        return _repository.GetAsync<MoviesResponse>(predicate, request);
+        return await results;
     }
 
     public Task AddMovie(AddMovieRequest request)

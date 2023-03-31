@@ -57,9 +57,9 @@ public abstract class Repository<TDbSet, TPKey> : IRepository<TDbSet, TPKey> whe
         return Context.Set<TDbSet>().FindAsync(id);
     }
 
-    public virtual IQueryable<TReturn> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate)
+    public virtual Task<List<TReturn>> GetAsync<TReturn>(Expression<Func<TDbSet, bool>> predicate)
     {
-        return DbSet.Where(predicate).ProjectTo<TReturn>(_mapper.ConfigurationProvider);
+        return DbSet.Where(predicate).ProjectTo<TReturn>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
     public Task<TDbSet> FirstOrDefault(Expression<Func<TDbSet, bool>> predicate)

@@ -11,6 +11,11 @@ using System.Net;
 
 namespace Movies.Application.Services.Users;
 
+
+//Create an endpoint to remove a movie rating for the authenticated user.
+//Create an endpoint to return all movies ratings for the authenticated user
+//Cache the response of the list movie endpoint
+
 public class UserServices : IUserServices
 {
     private readonly IJwtProvider _jwtProvider;

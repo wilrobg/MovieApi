@@ -10,7 +10,7 @@ public class User : IdentityUser
     {
         return new User
         {
-            Email = email,
+            Email = email.ToLower(),
             UserName= email
         };
     }
