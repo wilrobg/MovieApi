@@ -27,33 +27,7 @@ builder.Services.AddControllers(options => options.Filters.Add(new ApiExceptionF
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter a valid token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-
-});
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication(cfg =>
 {
@@ -62,10 +36,12 @@ builder.Services.AddAuthentication(cfg =>
 }).AddJwtBearer();
 
 
-builder.Services.AddAuthorization(options => options.AddPolicy("Roles", policy => policy.RequireClaim(ClaimTypes.Role, "Admin")));
+builder.Services.AddAuthorization();
 
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
+builder.Services.ConfigureOptions<SwaggerGenOptionsSetup>();
+builder.Services.ConfigureOptions<AuthorizationOptionsSetup>();
 
 var app = builder.Build();
 

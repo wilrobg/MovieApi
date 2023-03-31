@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Movies.Infrastructure.Authentication;
 using System.Security.Claims;
 using System.Text;
-using static IdentityModel.ClaimComparer;
 
 
 namespace Movies.Api.OptionsSetup;
