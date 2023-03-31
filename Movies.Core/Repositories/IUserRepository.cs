@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<User> GetUserByEmail(User user);
     Task<User> GetUserByEmail(string email);
     Task<IdentityResult> AddRole(Role role);
+    Task<IList<string>> GetUserRoles(User user);
 }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Requests.Users;
+using Movies.Application.Responses.Users;
 using Movies.Application.Services.Users;
-using Movies.Core.Enums;
 
 namespace Movies.Api.Controllers
 {
@@ -23,20 +23,18 @@ namespace Movies.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AddUser(AddUserRequest request)
         {
-            request.Role = UserRoles.User;
             await _userServices.AddUser(request);
             return Ok();
         }
 
-        [HttpPost("Admin")]
-        [Authorize]
-        public async Task<ActionResult> AddAdmin(AddUserRequest request)
+        [HttpGet("Roles")]
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<UserRolesResponse> GetRoles()
         {
-            request.Role = UserRoles.Admin;
-            await _userServices.AddUser(request);
-            return Ok();
+            return _userServices.GetUserRoles();
         }
     }
 }

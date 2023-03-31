@@ -22,8 +22,4 @@ public class UpdateMovieRequest
     [Required]
     [EnumDataType(typeof(MovieCategory))]
     public MovieCategory? CategoryId { get; set; }
-
-    [Required]
-    [Range(1, 10)]
-    public short? Rating { get; set; }
 }

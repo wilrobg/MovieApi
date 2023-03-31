@@ -5,6 +5,7 @@ using Movies.Api.OptionsSetup;
 using Movies.Application;
 using Movies.Application.Profiles;
 using Movies.Core;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +47,7 @@ builder.Services.AddSwaggerGen(options =>
                     Id="Bearer"
                 }
             },
-            new string[]{}
+            Array.Empty<string>()
         }
     });
 
@@ -57,6 +58,9 @@ builder.Services.AddAuthentication(cfg =>
     cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer();
+
+
+builder.Services.AddAuthorization(options => options.AddPolicy("Roles", policy => policy.RequireClaim(ClaimTypes.Role, "Admin")));
 
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
@@ -75,11 +79,9 @@ app.UseHttpsRedirection();
 
 app.UseGlobalExceptionHandler(environment);
 
-app.UseAuthorization();
-
 app.MapControllers();
 
-//app.UseAuthentication();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

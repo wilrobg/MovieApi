@@ -4,5 +4,5 @@ namespace Movies.Application.Services.Users;
 
 public interface IJwtProvider
 {
-    string GenerateToken(User request);
+    string GenerateToken(User request, IList<string> roles);
 }

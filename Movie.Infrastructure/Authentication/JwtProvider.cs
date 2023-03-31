@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Options;
+﻿using IdentityModel;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Movies.Core.Entities;
 using Movies.Infrastructure.Authentication;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -16,13 +18,18 @@ public class JwtProvider : IJwtProvider
         _jwtOptions = jwtOptions.Value;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(User user, IList<string> roles)
     {
-        var claims = new Claim[] 
+        var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.Email, user.Email.ToString())
+            new(JwtRegisteredClaimNames.Email, user.Email.ToString()),
         };
+
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(JwtClaimTypes.Role, role));
+        }
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(

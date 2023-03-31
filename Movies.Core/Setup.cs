@@ -17,7 +17,8 @@ public static class Setup
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<MoviesContext>();
+            .AddRoles<Role>()
+            .AddEntityFrameworkStores<MoviesContext>();
     }
 
     public static async Task DatabaseSeeder(this IServiceCollection services)
