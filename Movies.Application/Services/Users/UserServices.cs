@@ -52,7 +52,7 @@ public class UserServices : IUserServices
 
     public async Task<string> LoginUser(LoginRequest loginRequest)
     {
-        var user = await _userRepository.GetUserByEmail(loginRequest.Email);
+        var user = await _userRepository.GetUserByEmail(loginRequest.Email.ToLower());
 
         if (user is null) throw new MoviesException(HttpStatusCode.Unauthorized);
 
@@ -67,7 +67,7 @@ public class UserServices : IUserServices
 
     public async Task AddUserRole(UserRoleRequest request)
     {
-        var user = await _userRepository.GetUserByEmail(request.Email);
+        var user = await _userRepository.GetUserByEmail(request.Email.ToLower());
 
         if (user is null) throw new MoviesException(HttpStatusCode.Unauthorized);
 
@@ -84,7 +84,7 @@ public class UserServices : IUserServices
 
     public async Task RemoveUserRole(UserRoleRequest request)
     {
-        var user = await _userRepository.GetUserByEmail(request.Email);
+        var user = await _userRepository.GetUserByEmail(request.Email.ToLower());
 
         if (user is null) throw new MoviesException(HttpStatusCode.Unauthorized);
 
