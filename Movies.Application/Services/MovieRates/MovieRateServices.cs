@@ -1,6 +1,7 @@
 ﻿using Movies.Api.HttpContextAccessor;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests.Rates;
+using Movies.Application.Responses.MovieRate;
 using Movies.Core.Entities;
 using Movies.Core.Repositories;
 using System.Net;
@@ -20,6 +21,13 @@ public class MovieRateServices : IMovieRateServices
         _userHttpContextAccesor = userHttpContextAccesor;
         _moviesRepository = moviesRepository;
         _movieRateRepository = movieRateRepository;
+    }
+
+    public Task<List<MovieRateResponse>> GetMoviesRate()
+    {
+        var userId = _userHttpContextAccesor.Id;
+
+        return _movieRateRepository.GetAsync<MovieRateResponse>(x => x.UserId == userId);
     }
 
     public async Task RateMovie(RateMovieRequest request)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Requests.Rates;
+using Movies.Application.Responses.MovieRate;
 using Movies.Application.Services.MovieRates;
 
 namespace Movies.Api.Controllers;
@@ -13,6 +14,13 @@ public class MovieRateController : ControllerBase
     public MovieRateController(IMovieRateServices movieRateServices)
     {
         _movieRateServices = movieRateServices;
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<List<MovieRateResponse>> GetMoviesRate()
+    {
+        return await _movieRateServices.GetMoviesRate();
     }
 
     [HttpPut]
