@@ -1,12 +1,12 @@
 using CiudadGambito.Api.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
 using Movies.Api.HttpContextAccessor;
 using Movies.Api.OptionsSetup;
 using Movies.Application;
 using Movies.Application.Profiles;
 using Movies.Core;
-using System.Security.Claims;
+using Movies.Infrastructure;
+using Movies.Infrastructure.HttpContextAccessor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +17,8 @@ builder.Services.AddSingleton<IUserHttpContextAccesor, UserHttpContextAccesor>()
 builder.Services.AddApplication();
 
 builder.Services.AddDbContextSetup();
+
+builder.Services.AddInfrastructure();
 
 await builder.Services.DatabaseSeeder();
 
@@ -38,6 +40,7 @@ builder.Services.AddAuthentication(cfg =>
 
 builder.Services.AddAuthorization();
 
+builder.Services.ConfigureOptions<CacheOptionsSetup>();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 builder.Services.ConfigureOptions<SwaggerGenOptionsSetup>();

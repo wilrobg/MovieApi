@@ -17,7 +17,7 @@ namespace Movies.Api.Controllers
             _userServices = userServices;
         }
 
-        [SwaggerOperation(Description = "Only for Admins. Enter a valid email and password.")]
+        [SwaggerOperation(Description = "Default Admin: admin@movies.com, User: user@movies.com, Password: Test1234+")]
         [HttpPost("Login")]
         public async Task<string> Login(LoginRequest request)
         {

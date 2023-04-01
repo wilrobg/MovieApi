@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Movies.Infrastructure.HttpContextAccessor;
+using System.Security.Claims;
 
 namespace Movies.Api.HttpContextAccessor;
 

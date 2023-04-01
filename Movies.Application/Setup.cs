@@ -12,6 +12,5 @@ public static class Setup
         services.AddScoped<IMoviesServices, MoviesServices>();
         services.AddScoped<IMovieRateServices, MovieRateServices>();
         services.AddScoped<IUserServices, UserServices>();
-        services.AddScoped<IJwtProvider, JwtProvider>();
     }
 }

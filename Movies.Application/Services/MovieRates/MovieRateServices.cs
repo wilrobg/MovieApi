@@ -1,4 +1,4 @@
-﻿using Movies.Api.HttpContextAccessor;
+﻿using Movies.Infrastructure.HttpContextAccessor;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests.Rates;
 using Movies.Application.Responses.MovieRate;

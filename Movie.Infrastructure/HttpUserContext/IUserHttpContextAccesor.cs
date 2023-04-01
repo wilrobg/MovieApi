@@ -1,4 +1,4 @@
-﻿namespace Movies.Api.HttpContextAccessor;
+﻿namespace Movies.Infrastructure.HttpContextAccessor;
 
 public interface IUserHttpContextAccesor
 {

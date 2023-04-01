@@ -1,6 +1,6 @@
 ﻿using Movies.Core.Entities;
 
-namespace Movies.Application.Services.Users;
+namespace Movies.Infrastructure.Authentication;
 
 public interface IJwtProvider
 {

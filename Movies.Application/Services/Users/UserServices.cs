@@ -7,14 +7,10 @@ using Movies.Core.Abstractions;
 using Movies.Core.Entities;
 using Movies.Core.Enums;
 using Movies.Core.Repositories;
+using Movies.Infrastructure.Authentication;
 using System.Net;
 
 namespace Movies.Application.Services.Users;
-
-
-//Create an endpoint to remove a movie rating for the authenticated user.
-//Create an endpoint to return all movies ratings for the authenticated user
-//Cache the response of the list movie endpoint
 
 public class UserServices : IUserServices
 {

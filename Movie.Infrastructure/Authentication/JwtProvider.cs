@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Movies.Application.Services.Users;
+namespace Movies.Infrastructure.Authentication;
 
 public class JwtProvider : IJwtProvider
 {

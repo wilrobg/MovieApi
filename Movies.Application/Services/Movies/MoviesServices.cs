@@ -1,5 +1,4 @@
-﻿using LinqKit;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Movies.Application.Exceptions;
 using Movies.Application.Requests.Movies;
 using Movies.Application.Responses.Movies;
@@ -9,7 +8,8 @@ using Movies.Core.Models;
 using Movies.Core.Repositories;
 using Movies.Core.Abstractions;
 using System.Net;
-using Movies.Api.HttpContextAccessor;
+using Movies.Infrastructure.HttpContextAccessor;
+using Movies.Infrastructure.Cache;
 
 namespace Movies.Application.Services.Movies;
 
@@ -17,19 +17,21 @@ public class MoviesServices : IMoviesServices
 {
     private readonly IMoviesRepository _repository;
     private readonly IUserHttpContextAccesor _userHttpContext;
+    private readonly ICacheService _cacheService;
+
     public MoviesServices(
-        IMoviesRepository repository, 
-        IUserHttpContextAccesor userHttpContext)
+        IMoviesRepository repository,
+        IUserHttpContextAccesor userHttpContext,
+        ICacheService cacheService)
     {
         _repository = repository;
         _userHttpContext = userHttpContext;
+        _cacheService = cacheService;
     }
 
     public async Task<PaginationResult<MoviesResponse>> GetMovies(MoviesRequest request)
     {
-        var results = _repository.
-            GetAsync<MoviesResponse>(
-            request,
+        var key = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}",
             request.Name,
             request.Synopsis,
             request.CategoryId,
@@ -39,7 +41,26 @@ public class MoviesServices : IMoviesServices
             request.OrderBy,
             request.OrderByDesc);
 
-        return await results;
+        var results = await _cacheService.GetCacheItemAsync<PaginationResult<MoviesResponse>>(key);
+        
+        if(results is null)
+        {
+            results = await _repository.
+                GetAsync<MoviesResponse>(
+                request,
+                request.Name,
+                request.Synopsis,
+                request.CategoryId,
+                request.ReleaseYear,
+                request.Rating,
+                request.CreatedBy,
+                request.OrderBy,
+                request.OrderByDesc);
+
+            await _cacheService.SetCacheItemAsync(key, results);
+        }
+
+        return results;
     }
 
     public Task AddMovie(AddMovieRequest request)

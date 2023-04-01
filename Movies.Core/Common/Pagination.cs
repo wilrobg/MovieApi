@@ -2,6 +2,7 @@
 {
     public class PaginationResult<T>
     {
+        public PaginationResult() { }
         private PaginationResult(List<T> data, int pageNumber, int pageSize, int totalRecords)
         {
             Data = data;
@@ -13,10 +14,10 @@
         }
 
         public List<T> Data { get; set; }
-        public int PageNumber { get; private set; }
-        public int PageSize { get; }
-        public int TotalPages { get; }
-        public int TotalRecords { get; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int TotalPages { get; set; }
+        public int TotalRecords { get; set; }
 
 
         public static PaginationResult<T> GetPagination(List<T> data, int pageNumber, int pageSize, int totalRecords)

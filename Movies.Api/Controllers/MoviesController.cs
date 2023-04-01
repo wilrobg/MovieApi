@@ -29,6 +29,7 @@ namespace Movies.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [SwaggerOperation(Summary = "Add Movie endpoint", Description = "Only for admin, get categories id from Movies/Categories")]
         public async Task<ActionResult> Post(AddMovieRequest request)
         {
