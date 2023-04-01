@@ -1,0 +1,1140 @@
+{
+	"info": {
+		"_postman_id": "fdb6b6e0-47ff-4b5f-9e62-4c3a69d52304",
+		"name": "Movies.Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MovieRate",
+			"item": [
+				{
+					"name": "Get rated movies by the user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/MovieRate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MovieRate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/MovieRate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"MovieRate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"movieId\": 61069051,\n    \"name\": \"enim\",\n    \"releaseYear\": 36139723,\n    \"synopsis\": \"sed ad\",\n    \"categoryId\": \"<integer>\",\n    \"rate\": -62025900\n  },\n  {\n    \"movieId\": -90057165,\n    \"name\": \"dolor ex\",\n    \"releaseYear\": -47558113,\n    \"synopsis\": \"commodo\",\n    \"categoryId\": \"<integer>\",\n    \"rate\": -76545218\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Rate movie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"movieId\": 1,\n  \"rate\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/MovieRate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MovieRate"
+							]
+						},
+						"description": "This endpoint works for update or add a movie rate by user. Rate must be from 1 to 10."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"movieId\": -74060947,\n  \"rate\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/MovieRate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"MovieRate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Delete movie rate",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/MovieRate/:movieId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"MovieRate",
+								":movieId"
+							],
+							"variable": [
+								{
+									"key": "movieId",
+									"value": "1",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "This endpoint delete user movie rate."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/MovieRate/:movieId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"MovieRate",
+										":movieId"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "75449596",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Get List of categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Movies/Categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Movies",
+								"Categories"
+							]
+						},
+						"description": "Only for admin"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Movies/Categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Movies",
+										"Categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": 4,\n    \"name\": \"in enim sit Lorem et\"\n  },\n  {\n    \"id\": 5,\n    \"name\": \"amet dolor anim\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add Movie endpoint",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"categoryId\": 1,\n  \"name\": \"elit\",\n  \"releaseYear\": 1966,\n  \"synopsis\": \"quis cillum sunt\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Movies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Movies"
+							]
+						},
+						"description": "Only for admin, get categories id from Movies/Categories"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"categoryId\": 1,\n  \"name\": \"elit\",\n  \"releaseYear\": 1966,\n  \"synopsis\": \"quis cillum sunt\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Movies"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Update Movie endpoint",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"categoryId\": 2,\n  \"id\": 502,\n  \"name\": \"anim adipisicin\",\n  \"releaseYear\": 1977,\n  \"synopsis\": \"aliquip proident in\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Movies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Movies"
+							]
+						},
+						"description": "Only for admin, get categories id from Movies/Categories"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"categoryId\": 2,\n  \"id\": 606205,\n  \"name\": \"anim adipisicin\",\n  \"releaseYear\": 1977,\n  \"synopsis\": \"aliquip proident in\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Movies"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get movies endpoint",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Movies?Name=elit",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Movies"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "elit"
+								},
+								{
+									"key": "Synopsis",
+									"value": "esse irure commodo mollit",
+									"disabled": true
+								},
+								{
+									"key": "CategoryId",
+									"value": "6",
+									"disabled": true
+								},
+								{
+									"key": "ReleaseYear",
+									"value": "2000",
+									"disabled": true
+								},
+								{
+									"key": "Rating",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "CreatedBy",
+									"value": "esse irure commodo mollit",
+									"disabled": true
+								},
+								{
+									"key": "OrderBy",
+									"value": "esse irure commodo mollit",
+									"disabled": true
+								},
+								{
+									"key": "OrderByDesc",
+									"value": "esse irure commodo mollit",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Only for admin, get categories id from Movies/Categories, paginations options are setup by default. Movie rating is the averages of all users rates for movie."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Movies?Name=esse irure commodo mollit&Synopsis=esse irure commodo mollit&CategoryId=<integer>&ReleaseYear=75449596&Rating=75449596&CreatedBy=esse irure commodo mollit&OrderBy=esse irure commodo mollit&OrderByDesc=esse irure commodo mollit&PageNumber=75449596&PageSize=75449596",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Movies"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "esse irure commodo mollit"
+										},
+										{
+											"key": "Synopsis",
+											"value": "esse irure commodo mollit"
+										},
+										{
+											"key": "CategoryId",
+											"value": "<integer>"
+										},
+										{
+											"key": "ReleaseYear",
+											"value": "75449596"
+										},
+										{
+											"key": "Rating",
+											"value": "75449596"
+										},
+										{
+											"key": "CreatedBy",
+											"value": "esse irure commodo mollit"
+										},
+										{
+											"key": "OrderBy",
+											"value": "esse irure commodo mollit"
+										},
+										{
+											"key": "OrderByDesc",
+											"value": "esse irure commodo mollit"
+										},
+										{
+											"key": "PageNumber",
+											"value": "75449596"
+										},
+										{
+											"key": "PageSize",
+											"value": "75449596"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"id\": -89501067,\n      \"name\": \"ipsum cillum consequat in t\",\n      \"releaseYear\": 74654121,\n      \"synopsis\": \"do\",\n      \"categoryId\": \"<integer>\",\n      \"createdDate\": \"1977-06-21T06:24:17.529Z\",\n      \"createdBy\": \"laborum in incididunt pariatur\",\n      \"rate\": -19698072.05730647\n    },\n    {\n      \"id\": -63511066,\n      \"name\": \"in est mollit anim\",\n      \"releaseYear\": -23281479,\n      \"synopsis\": \"pariatur laborum elit\",\n      \"categoryId\": \"<integer>\",\n      \"createdDate\": \"2006-05-02T20:31:28.094Z\",\n      \"createdBy\": \"quis aliquip cupidatat voluptate\",\n      \"rate\": -26142121.482649565\n    }\n  ],\n  \"pageNumber\": 64527306,\n  \"pageSize\": -93510913,\n  \"totalPages\": 78723046,\n  \"totalRecords\": 21676997\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Movie Image endpoint",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Id",
+									"value": "504",
+									"description": "(Required) ",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"description": "(Required) ",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Movies/Image",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Movies",
+								"Image"
+							]
+						},
+						"description": "Only for admin"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Id",
+											"value": "21071758",
+											"description": "(Required) ",
+											"type": "text"
+										},
+										{
+											"key": "Image",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Movies/Image",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Movies",
+										"Image"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Delete Movie endpoint",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Movies/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Movies",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "503",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Only for admin"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "75449596",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Add user endpoint",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"UcUIyPRsvUi7@zpPXpi.dwjn\",\n  \"role\": 2,\n  \"password\": \"x-<ynbLxn^kqbB\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Users"
+							]
+						},
+						"description": "Only for Admins. Enter a valid email and password."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"UcUIyPRsvUi7@zpPXpi.dwjn\",\n  \"role\": 2,\n  \"password\": \"x-<ynbLxn^kqbB\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Add role to a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@postman.com\",\n  \"role\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/Role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Users",
+								"Role"
+							]
+						},
+						"description": "Only for Admins. Get rolesId from Users/Roles"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"oAfvD6JeIg@OLxlLLGjvpOanaqed.ryg\",\n  \"role\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Users/Role",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Role"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Remove role to a user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@postman.com\",\n  \"role\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/Role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Users",
+								"Role"
+							]
+						},
+						"description": "Only for Admins. Get rolesId from Users/Roles"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"oAfvD6JeIg@OLxlLLGjvpOanaqed.ryg\",\n  \"role\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Users/Role",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Role"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Get Roles id.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Users/Roles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Users",
+								"Roles"
+							]
+						},
+						"description": "Only for Admins. Get roleId"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Users/Roles",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Roles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": 1,\n    \"name\": \"aliqua \"\n  },\n  {\n    \"id\": 1,\n    \"name\": \"occ\"\n  }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login default users Admin: admin@movies.com, User: user@movies.com, Password: Test1234+",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setEnvironmentVariable(\"bearerToken\", responseBody);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"user@movies.com\",\n  \"password\": \"Test1234+\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/Users/Login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"Users",
+						"Login"
+					]
+				},
+				"description": "Default Admin: admin@movies.com, User: user@movies.com, Password: Test1234+"
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Added as a part of security scheme: bearer",
+								"key": "Authorization",
+								"value": "Bearer <token>"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"n0U5xA@HfWeodOlCZjljDiedpsXcFD.yqd\",\n  \"password\": \"irure sed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/Login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Users",
+								"Login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "\"esse irure commodo mollit\""
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/",
+			"type": "string"
+		}
+	]
+}
