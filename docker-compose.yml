@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 
 networks:
   dev:
@@ -8,7 +8,7 @@ services:
   movies-service:
     image: ${REGISTRY:-movies}/movies.api:${PLATFORM:-linux}-${TAG:-latest}
     depends_on:
-      - "movies_db"
+      - "db"
     container_name: movies-service
     ports:
       - "5009:80"
@@ -16,14 +16,17 @@ services:
       context: .
       dockerfile: Movies.API/Dockerfile
     environment:
-      - ConnectionString=host=movies_db;port=5431;database=moviesDB;username=postgres;password=postgres;Pooling=true;
+      - ConnectionString=host=db;port=5431;database=movies_db;username=postgres;password=postgres;Pooling=true;
       - ASPNETCORE_ENVIRONMENT=Development
+      - HostName=cache
+      - PortNumber=6379
+      - Password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     networks:
       - dev
 
-  movies_db:
+  db:
     image: postgres:latest
-    container_name: movies_db
+    container_name: db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -35,5 +38,18 @@ services:
     networks:
       - dev
 
+  cache:
+    image: redis:6.2-alpine
+    container_name: cache
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - cache:/data
+    networks:
+      - dev
+
 volumes:
   customer_data:
+  cache:
